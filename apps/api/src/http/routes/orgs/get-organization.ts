@@ -8,7 +8,7 @@ export async function getOrganization(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .get(
       '/organizations/:slug',
       {
         schema: {
@@ -40,9 +40,9 @@ export async function getOrganization(app: FastifyInstance) {
 
         const { organization } = await request.getUserMembership(slug)
 
-        return reply.code(200).send({
+        return reply.status(200).send({
           organization,
         })
-      },
+      }
     )
 }
